@@ -1,6 +1,6 @@
 {
     "name": "prettier-stylelint",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "description": "code > prettier > stylelint > formatted code",
     "repository": "hugomrdias/prettier-stylelint",
     "main": "index.js",
@@ -58,7 +58,11 @@
         "update-notifier": "^2.2.0"
     },
     "eslintConfig": {
-        "extends": "halo/node"
+        "extends": "halo/node",
+        "rules": {
+            "operator-linebreak": "off",
+            "arrow-parens": "off"
+        }
     },
     "stylelint": {
         "extends": [
@@ -86,13 +90,14 @@
         }
     },
     "prettier": {
-        "printWidth": 80,
+        "printWidth": 100,
         "tabWidth": 4,
         "useTabs": false,
-        "semi": false,
+        "semi": true,
         "singleQuote": true,
         "trailingComma": "none",
         "bracketSpacing": true,
-        "jsxBracketSameLine": false
+        "jsxBracketSameLine": false,
+        "quoteProps": "consistent"
     }
 }

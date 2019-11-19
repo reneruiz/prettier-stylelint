@@ -13,12 +13,7 @@ const debug = require('debug')('prettier-stylelint:main');
  * @param {Object} options - options
  * @returns {Promise} -
  */
-function resolveConfig({
-    filePath,
-    stylelintPath,
-    stylelintConfig,
-    prettierOptions
-}) {
+function resolveConfig({ filePath, stylelintPath, stylelintConfig, prettierOptions }) {
     const resolve = resolveConfig.resolve;
     const stylelint = requireRelative(stylelintPath, filePath, 'stylelint');
     const linterAPI = stylelint.createLinter();
@@ -60,7 +55,7 @@ resolveConfig.resolve = (stylelintConfig, prettierOptions = {}) => {
             prettierOptions.tabWidth = indentation;
         }
     }
-    prettierOptions.parser = 'postcss';
+    prettierOptions.parser = 'css';
     debug('prettier %O', prettierOptions);
     debug('linter %O', stylelintConfig);
 
@@ -76,7 +71,7 @@ function stylelinter(code, { filePath, stylelintPath }) {
             code,
             codeFilename: filePath
         })
-        .then((result) => {
+        .then(result => {
             const fixed = result.root.toString(result.opts.syntax);
 
             return fixed;
@@ -100,9 +95,9 @@ function getPrettierConfig(filePath, prettierPath) {
 
     // NOTE: Backward-compatibility with old prettier versions (<1.7)
     //       that don't have ``resolveConfig.sync` method.
-    return typeof prettier.resolveConfig.sync === 'undefined' ?
-        {} :
-        prettier.resolveConfig.sync(filePath);
+    return typeof prettier.resolveConfig.sync === 'undefined'
+        ? {}
+        : prettier.resolveConfig.sync(filePath);
 }
 
 function format({
@@ -114,9 +109,7 @@ function format({
     stylelintConfig
 }) {
     const options = {
-        filePath: path.isAbsolute(filePath) ?
-            filePath :
-            path.resolve(process.cwd(), filePath),
+        filePath: path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath),
         text,
         prettierPath,
         stylelintPath,
